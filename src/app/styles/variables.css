@@ -1,0 +1,15 @@
+:root {
+  --color-text-primary: #282828;
+  --color-text-secondary: #8b8b8b;
+  --color-background: #ffffff;
+  --color-accent: #339933;
+  --color-border: #dddddd;
+  --color-danger: #cf1322;
+
+  --layout-max-width: 1540px;
+  --layout-padding-x: clamp(24px, 4vw, 48px);
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+}

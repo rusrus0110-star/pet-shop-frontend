@@ -1,0 +1,15 @@
+.ant-btn-primary {
+  background-color: #339933;
+  box-shadow: none;
+}
+
+.ant-btn-primary:hover,
+.ant-btn-primary:focus {
+  background-color: #2d8a2d !important;
+}
+
+.ant-input,
+.ant-input-outlined,
+.ant-select-selector {
+  border-radius: 8px !important;
+}
