@@ -6,8 +6,8 @@
   --color-border: #dddddd;
   --color-danger: #cf1322;
 
-  --container-width: 1440px;
-  --container-padding: 20px;
+  --layout-max-width: 1540px;
+  --layout-padding-x: clamp(24px, 4vw, 48px);
 
   --radius-sm: 8px;
   --radius-md: 12px;
