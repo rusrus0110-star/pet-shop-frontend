@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { submitSaleRequest } from "./saleRequestThunks";
+import { submitOrder } from "./orderThunks";
 
 const initialState = {
   isSubmitting: false,
@@ -7,11 +7,11 @@ const initialState = {
   error: null,
 };
 
-const saleRequestSlice = createSlice({
-  name: "saleRequest",
+const orderSlice = createSlice({
+  name: "order",
   initialState,
   reducers: {
-    resetSaleRequestState(state) {
+    resetOrderState(state) {
       state.isSubmitting = false;
       state.isSuccess = false;
       state.error = null;
@@ -19,22 +19,22 @@ const saleRequestSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(submitSaleRequest.pending, (state) => {
+      .addCase(submitOrder.pending, (state) => {
         state.isSubmitting = true;
         state.isSuccess = false;
         state.error = null;
       })
-      .addCase(submitSaleRequest.fulfilled, (state) => {
+      .addCase(submitOrder.fulfilled, (state) => {
         state.isSubmitting = false;
         state.isSuccess = true;
       })
-      .addCase(submitSaleRequest.rejected, (state, action) => {
+      .addCase(submitOrder.rejected, (state, action) => {
         state.isSubmitting = false;
         state.isSuccess = false;
-        state.error = action.payload || "Failed to submit discount request";
+        state.error = action.payload || "Failed to submit order";
       });
   },
 });
 
-export const { resetSaleRequestState } = saleRequestSlice.actions;
-export default saleRequestSlice.reducer;
+export const { resetOrderState } = orderSlice.actions;
+export default orderSlice.reducer;
