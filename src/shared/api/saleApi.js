@@ -1,13 +1,7 @@
-import { axiosInstance } from "./axiosInstance";
-import { isBackendError } from "../lib/isBackendError";
+import axios from "axios";
+import { API_BASE_URL } from "../config/env";
 
 export async function sendSaleRequest(payload) {
-  const response = await axiosInstance.post("/sale/send", payload);
-  const data = response.data;
-
-  if (isBackendError(data)) {
-    throw new Error(data.message || "Failed to send discount request");
-  }
-
-  return data;
+  const response = await axios.post(`${API_BASE_URL}/sale/send`, payload);
+  return response.data;
 }
