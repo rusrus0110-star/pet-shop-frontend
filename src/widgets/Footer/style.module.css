@@ -1,12 +1,149 @@
 .footer {
-  border-top: 1px solid #e5e5e5;
-  background-color: #ffffff;
+  padding: 40px 0 100px;
 }
 
 .container {
-  max-width: 1440px;
+  width: min(100%, var(--layout-max-width));
   margin: 0 auto;
-  padding: 24px 20px;
+  padding: 0 var(--layout-padding-x);
   display: grid;
-  gap: 8px;
+  gap: 20px;
+}
+
+.title {
+  margin: 0;
+  font-family: "Montserrat", Arial, sans-serif;
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 700;
+  line-height: 1.1;
+  color: #282828;
+}
+
+.cardsGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(320px, 1fr);
+  gap: 32px;
+}
+
+.card {
+  min-height: 150px;
+  padding: 32px;
+  border-radius: 12px;
+  background-color: #f1f3f4;
+  display: grid;
+  align-content: start;
+  gap: 16px;
+}
+
+.cardLarge {
+  min-height: 194px;
+}
+
+.label {
+  margin: 0;
+  font-family: "Montserrat", Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: #8b8b8b;
+}
+
+.primaryText {
+  margin: 0;
+  text-decoration: none;
+  font-family: "Montserrat", Arial, sans-serif;
+  font-size: clamp(24px, 2.5vw, 32px);
+  font-weight: 600;
+  line-height: 1.1;
+  color: #282828;
+}
+
+.secondaryText {
+  margin: 0;
+  font-family: "Montserrat", Arial, sans-serif;
+  font-size: clamp(24px, 2.5vw, 32px);
+  font-weight: 600;
+  line-height: 1.1;
+  color: #282828;
+}
+
+.socials {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.socialLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}
+
+.socialIcon {
+  width: 43px;
+  height: 43px;
+  display: block;
+  object-fit: contain;
+}
+
+.mapWrapper {
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.mapImage {
+  width: 100%;
+  aspect-ratio: 1360/350;
+  display: block;
+  object-fit: cover;
+}
+
+@media (max-width: 900px) {
+  .cardsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .card,
+  .cardLarge {
+    min-height: auto;
+  }
+
+  .mapImage {
+    height: 280px;
+  }
+}
+
+@media (max-width: 640px) {
+  .footer {
+    padding: 56px 0;
+  }
+
+  .container {
+    gap: 24px;
+  }
+
+  .card {
+    padding: 20px;
+    gap: 12px;
+  }
+
+  .label {
+    font-size: 16px;
+  }
+
+  .primaryText,
+  .secondaryText {
+    font-size: 24px;
+  }
+
+  .socialIcon {
+    width: 38px;
+    height: 38px;
+  }
+
+  .mapImage {
+    height: 220px;
+  }
 }
