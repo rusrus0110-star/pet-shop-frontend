@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 
 import { ROUTES } from "../../../../shared/config/routes";
-import { getImageUrl } from "../../../../shared/lib/getImageUrl";
+import { getCategoryImageUrl } from "../../../../shared/lib/getCategoryImageUrl";
 
 import styles from "./style.module.css";
 
 function CategoryCard({ category }) {
-  const imageUrl = getImageUrl(category.image);
+  const imageUrl = getCategoryImageUrl(category.image);
 
   return (
     <Link

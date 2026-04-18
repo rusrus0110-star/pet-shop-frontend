@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 import heroBanner from "../../assets/images/hero/hero-banner.svg";
+import CategoriesPreview from "../../widgets/CategoriesPreview";
 import { ROUTES } from "../../shared/config/routes";
 
 import styles from "./style.module.css";
@@ -27,9 +28,7 @@ function HomePage() {
       </section>
 
       <div className={styles.content}>
-        <section className={styles.stubSection}>
-          <h2 className={styles.stubTitle}>Categories</h2>
-        </section>
+        <CategoriesPreview />
       </div>
     </div>
   );
