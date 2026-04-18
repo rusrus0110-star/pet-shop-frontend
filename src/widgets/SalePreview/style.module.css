@@ -1,7 +1,9 @@
 .section {
   display: grid;
-  gap: 40px;
-  margin-top: 60px;
+  gap: 24px;
+  margin-top: 48px;
+  margin-bottom: 0;
+  padding-bottom: 0;
 }
 
 .head {
@@ -63,7 +65,8 @@
   align-items: center;
   justify-content: center;
   gap: 16px;
-  margin-top: -8px;
+  margin: 0;
+  padding: 0;
 }
 
 .arrowButton {
@@ -104,12 +107,14 @@
 }
 
 .state {
+  margin: 0;
   font-family: "Montserrat", Arial, sans-serif;
   font-size: 18px;
   color: #282828;
 }
 
 .error {
+  margin: 0;
   font-family: "Montserrat", Arial, sans-serif;
   font-size: 18px;
   color: #cf1322;
