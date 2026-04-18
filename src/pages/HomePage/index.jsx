@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import heroBanner from "../../assets/images/hero/hero-banner.svg";
 import CategoriesPreview from "../../widgets/CategoriesPreview";
 import DiscountBanner from "../../widgets/DiscountBanner";
+import SalePreview from "../../widgets/SalePreview";
 import { ROUTES } from "../../shared/config/routes";
 
 import styles from "./style.module.css";
@@ -31,6 +32,7 @@ function HomePage() {
       <div className={styles.content}>
         <CategoriesPreview />
         <DiscountBanner />
+        <SalePreview />
       </div>
     </div>
   );
