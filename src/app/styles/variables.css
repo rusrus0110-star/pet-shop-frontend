@@ -12,4 +12,36 @@
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
+
+  --font-family-base: "Montserrat", Arial, sans-serif;
+
+  --font-size-h1: clamp(40px, 3.6vw, 56px);
+  --font-size-h2: clamp(32px, 3.2vw, 48px);
+  --font-size-h3: 20px;
+  --font-size-body: 16px;
+  --font-size-small: 14px;
+
+  --font-weight-bold: 700;
+  --font-weight-semi-bold: 600;
+  --font-weight-medium: 500;
+
+  --line-height-tight: 1.1;
+  --line-height-normal: 1.3;
+
+  --color-text-primary: #282828;
+  --color-text-secondary: #8b8b8b;
+
+  --product-card-title-size: 18px;
+  --product-card-title-line-height: 1.3;
+
+  --product-card-price-size: 20px;
+  --product-card-old-price-size: 14px;
+
+  --product-card-badge-size: 16px;
+  --product-card-badge-height: 34px;
+  --product-card-badge-padding-x: 10px;
+
+  --product-card-content-padding-x: 16px;
+  --product-card-content-padding-bottom: 16px;
+  --product-card-price-gap: 16px;
 }
