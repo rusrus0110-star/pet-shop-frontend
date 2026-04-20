@@ -1,6 +1,28 @@
 .page {
-  max-width: 1440px;
+  width: 100%;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--layout-max-width);
   margin: 0 auto;
-  padding: 40px 20px;
-  min-height: 60vh;
+  padding: 40px var(--layout-padding-x) 0;
+  display: grid;
+  gap: 48px;
+}
+
+.title {
+  margin: 0;
+  font-family: "Montserrat", Arial, sans-serif;
+  font-size: clamp(40px, 4.5vw, 64px);
+  font-weight: 700;
+  line-height: 1.1;
+  color: #282828;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding-top: 24px;
+    gap: 24px;
+  }
 }
