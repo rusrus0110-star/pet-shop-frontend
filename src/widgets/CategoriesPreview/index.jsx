@@ -1,19 +1,16 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import CategoryCard from "../../entities/category/ui/CategoryCard";
-import { ROUTES } from "../../shared/config/routes";
 import { getAllCategories } from "../../shared/api/categoriesApi";
+import { ROUTES } from "../../shared/config/routes";
+import { getCategoryImageUrl } from "../../shared/lib/getCategoryImageUrl";
 
 import styles from "./style.module.css";
 
-const ITEMS_PER_PAGE = 4;
-
-function CategoriesPreview() {
+function CategoriesPreview({ showAll = false }) {
   const [categories, setCategories] = useState([]);
   const [status, setStatus] = useState("idle");
   const [error, setError] = useState("");
-  const [page, setPage] = useState(1);
 
   useEffect(() => {
     let isMounted = true;
@@ -25,7 +22,9 @@ function CategoriesPreview() {
 
         const data = await getAllCategories();
 
-        if (!isMounted) return;
+        if (!isMounted) {
+          return;
+        }
 
         const normalized = data.map((item) => ({
           id: Number(item.id),
@@ -35,11 +34,13 @@ function CategoriesPreview() {
 
         setCategories(normalized);
         setStatus("success");
-      } catch (err) {
-        if (!isMounted) return;
+      } catch (requestError) {
+        if (!isMounted) {
+          return;
+        }
 
         setStatus("error");
-        setError(err.message || "Failed to load categories");
+        setError(requestError.message || "Failed to load categories.");
       }
     }
 
@@ -50,74 +51,51 @@ function CategoriesPreview() {
     };
   }, []);
 
-  const totalPages = Math.ceil(categories.length / ITEMS_PER_PAGE);
-
-  const visibleCategories = useMemo(() => {
-    const startIndex = (page - 1) * ITEMS_PER_PAGE;
-    return categories.slice(startIndex, startIndex + ITEMS_PER_PAGE);
-  }, [categories, page]);
-
-  const handlePrev = () => {
-    setPage((prev) => Math.max(prev - 1, 1));
-  };
-
-  const handleNext = () => {
-    setPage((prev) => Math.min(prev + 1, totalPages));
-  };
+  const visibleCategories = showAll ? categories : categories.slice(0, 4);
 
   return (
     <section className={styles.section}>
-      <div className={styles.head}>
-        <h2 className={styles.title}>Categories</h2>
-
-        <Link to={ROUTES.CATEGORIES} className={styles.link}>
-          All categories
-        </Link>
-      </div>
-
-      {status === "loading" && (
-        <p className={styles.state}>Loading categories...</p>
-      )}
-
-      {status === "error" && <p className={styles.error}>{error}</p>}
-
-      {status === "success" && (
-        <>
-          <div className={styles.grid}>
-            {visibleCategories.map((category) => (
-              <CategoryCard key={category.id} category={category} />
-            ))}
+      {!showAll ? (
+        <div className={styles.head}>
+          <div className={styles.titleGroup}>
+            <h2 className={styles.title}>Categories</h2>
+            <div className={styles.line} />
           </div>
 
-          {totalPages > 1 && (
-            <div className={styles.navigation}>
-              <button
-                type="button"
-                className={styles.arrowButton}
-                onClick={handlePrev}
-                disabled={page === 1}
-                aria-label="Show previous categories"
-              >
-                ←
-              </button>
+          <Link to={ROUTES.CATEGORIES} className={styles.link}>
+            All categories
+          </Link>
+        </div>
+      ) : null}
 
-              <span className={styles.pageInfo}>
-                {page} / {totalPages}
-              </span>
+      {status === "loading" ? (
+        <p className={styles.state}>Loading categories...</p>
+      ) : null}
 
-              <button
-                type="button"
-                className={styles.arrowButton}
-                onClick={handleNext}
-                disabled={page === totalPages}
-                aria-label="Show next categories"
-              >
-                →
-              </button>
-            </div>
-          )}
-        </>
-      )}
+      {status === "error" ? <p className={styles.error}>{error}</p> : null}
+
+      {status === "success" ? (
+        <div className={styles.grid}>
+          {visibleCategories.map((category) => (
+            <Link
+              key={category.id}
+              to={ROUTES.CATEGORY_PRODUCTS.replace(":id", String(category.id))}
+              className={styles.card}
+            >
+              <div className={styles.imageWrapper}>
+                <img
+                  src={getCategoryImageUrl(category.image)}
+                  alt={category.title}
+                  className={styles.image}
+                  loading="lazy"
+                />
+              </div>
+
+              <p className={styles.cardTitle}>{category.title}</p>
+            </Link>
+          ))}
+        </div>
+      ) : null}
     </section>
   );
 }

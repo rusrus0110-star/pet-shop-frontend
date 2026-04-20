@@ -80,6 +80,8 @@
   padding-bottom: 0;
   padding-left: var(--layout-padding-x);
   padding-right: var(--layout-padding-x);
+  display: grid;
+  gap: 48px;
 }
 
 .stubSection {
