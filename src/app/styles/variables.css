@@ -5,6 +5,9 @@
   --color-accent: #339933;
   --color-border: #dddddd;
   --color-danger: #cf1322;
+  --color-primary-blue: #0d50ff;
+  --color-dark: #282828;
+  --color-white: #ffffff;
 
   --layout-max-width: 1540px;
   --layout-padding-x: clamp(24px, 4vw, 48px);
@@ -28,20 +31,88 @@
   --line-height-tight: 1.1;
   --line-height-normal: 1.3;
 
-  --color-text-primary: #282828;
-  --color-text-secondary: #8b8b8b;
-
   --product-card-title-size: 18px;
   --product-card-title-line-height: 1.3;
-
   --product-card-price-size: 20px;
   --product-card-old-price-size: 14px;
-
   --product-card-badge-size: 16px;
   --product-card-badge-height: 34px;
   --product-card-badge-padding-x: 10px;
-
   --product-card-content-padding-x: 16px;
   --product-card-content-padding-bottom: 16px;
   --product-card-price-gap: 16px;
+
+  --breadcrumbs-gap: 16px;
+  --breadcrumbs-item-height: 36px;
+  --breadcrumbs-item-padding-x: 16px;
+  --breadcrumbs-font-size: 14px;
+
+  --product-page-gap: 32px;
+  --product-page-gallery-width: 780px;
+  --product-page-gallery-height: 572px;
+
+  --product-page-title-size: 40px;
+  --product-page-title-line-height: 1.1;
+  --product-page-title-letter-spacing: 0;
+
+  --product-page-current-price-size: 64px;
+  --product-page-current-price-line-height: 1.1;
+
+  --product-page-old-price-size: 40px;
+  --product-page-old-price-line-height: 1.1;
+
+  --product-page-discount-badge-height: 34px;
+  --product-page-discount-badge-padding-x: 10px;
+  --product-page-discount-badge-font-size: 16px;
+  --product-page-discount-badge-radius: 6px;
+
+  --product-page-quantity-height: 58px;
+  --product-page-quantity-width: 200px;
+  --product-page-quantity-button-width: 58px;
+  --product-page-quantity-font-size: 20px;
+
+  --product-page-add-button-width: 316px;
+  --product-page-add-button-height: 58px;
+  --product-page-add-button-font-size: 20px;
+
+  --product-page-description-title-size: 20px;
+  --product-page-description-size: 16px;
+  --product-page-description-line-height: 1.3;
+  --product-page-description-lines-collapsed: 8;
+
+  --header-height: 128px;
+  --header-nav-font-size: 20px;
+  --header-cart-badge-size: 26px;
+}
+
+@media (max-width: 1024px) {
+  :root {
+    --product-page-gallery-width: 100%;
+    --product-page-gallery-height: auto;
+
+    --product-page-title-size: 32px;
+    --product-page-current-price-size: 48px;
+    --product-page-old-price-size: 28px;
+
+    --product-page-quantity-width: 180px;
+    --product-page-add-button-width: 260px;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --font-size-h1: 40px;
+
+    --product-page-title-size: 28px;
+    --product-page-current-price-size: 40px;
+    --product-page-old-price-size: 24px;
+
+    --product-page-quantity-height: 52px;
+    --product-page-quantity-width: 164px;
+    --product-page-quantity-button-width: 52px;
+
+    --product-page-add-button-width: 100%;
+    --product-page-add-button-height: 52px;
+    --product-page-add-button-font-size: 18px;
+  }
 }

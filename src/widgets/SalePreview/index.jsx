@@ -9,6 +9,26 @@ import styles from "./style.module.css";
 
 const ITEMS_PER_PAGE = 4;
 
+function toNumber(value) {
+  const parsed = Number(value);
+  return Number.isFinite(parsed) ? parsed : 0;
+}
+
+function normalizeProduct(item) {
+  const rawDiscountPrice = item.discountPrice ?? item.discont_price ?? null;
+
+  return {
+    id: Number(item.id),
+    title: item.title ?? "",
+    price: toNumber(item.price),
+    discountPrice:
+      rawDiscountPrice === null || rawDiscountPrice === undefined
+        ? null
+        : toNumber(rawDiscountPrice),
+    image: item.image ?? "",
+  };
+}
+
 function SalePreview() {
   const [products, setProducts] = useState([]);
   const [status, setStatus] = useState("idle");
@@ -29,16 +49,9 @@ function SalePreview() {
           return;
         }
 
-        const normalized = data.map((item) => ({
-          id: Number(item.id),
-          title: item.title ?? "",
-          price: Number(item.price) || 0,
-          discountPrice:
-            item.discont_price === null || item.discont_price === undefined
-              ? null
-              : Number(item.discont_price),
-          image: item.image ?? "",
-        }));
+        const normalized = Array.isArray(data)
+          ? data.map(normalizeProduct)
+          : [];
 
         setProducts(normalized);
         setStatus("success");
