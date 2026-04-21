@@ -1,8 +1,10 @@
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import CartItem from "../../features/cart/ui/CartItem";
 import CartSummary from "../../features/cart/ui/CartSummary";
 import { selectCartItems } from "../../features/cart/model/cartSelectors";
+import { ROUTES } from "../../shared/config/routes";
 
 import styles from "./style.module.css";
 
@@ -12,10 +14,24 @@ function CartPage() {
   return (
     <section className={styles.page}>
       <div className={styles.container}>
-        <h1 className={styles.title}>Shopping cart</h1>
+        <div className={styles.header}>
+          <h1 className={styles.title}>Shopping cart</h1>
+
+          <div className={styles.headerLine} />
+
+          <Link to={ROUTES.CATEGORIES} className={styles.backLink}>
+            Back to the store
+          </Link>
+        </div>
 
         {cartItems.length === 0 ? (
-          <p className={styles.empty}>Your cart is empty.</p>
+          <div className={styles.emptyState}>
+            <p className={styles.empty}>Your cart is empty.</p>
+
+            <Link to={ROUTES.CATEGORIES} className={styles.emptyLink}>
+              Go shopping
+            </Link>
+          </div>
         ) : (
           <div className={styles.layout}>
             <div className={styles.items}>

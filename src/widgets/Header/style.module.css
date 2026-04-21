@@ -13,13 +13,17 @@
   grid-template-columns: auto 1fr auto;
   align-items: center;
   column-gap: 24px;
+  box-sizing: border-box;
 }
 
 .logoLink {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  justify-self: start;
   text-decoration: none;
+  margin: 0;
+  padding: 0;
 }
 
 .logo {
@@ -34,6 +38,7 @@
   align-items: center;
   justify-content: center;
   gap: 32px;
+  min-width: 0;
 }
 
 .navLink {
@@ -61,7 +66,10 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  justify-self: end;
   text-decoration: none;
+  margin: 0;
+  padding: 0;
 }
 
 .cartIcon {
@@ -79,13 +87,43 @@
   height: 18px;
   padding: 0 4px;
   border-radius: 999px;
-  background-color: var(--color-primary-blue);;
+  background-color: var(--color-primary-blue);
   color: #ffffff;
   font-family: var(--font-family-base);
   font-size: 12px;
   font-weight: var(--font-weight-semi-bold);
   line-height: 18px;
   text-align: center;
+}
+
+@media (max-width: 1366px) {
+  .container {
+    min-height: 96px;
+    column-gap: 20px;
+  }
+
+  .logo {
+    width: 48px;
+    height: 48px;
+  }
+
+  .nav {
+    gap: 24px;
+  }
+
+  .navLink {
+    font-size: 15px;
+  }
+
+  .cartLink {
+    width: 44px;
+    height: 44px;
+  }
+
+  .cartIcon {
+    width: 24px;
+    height: 28px;
+  }
 }
 
 @media (max-width: 900px) {
@@ -98,10 +136,12 @@
       "logo cart"
       "nav nav";
     row-gap: 20px;
+    align-items: center;
   }
 
   .logoLink {
     grid-area: logo;
+    justify-self: start;
   }
 
   .cartLink {
@@ -118,9 +158,45 @@
 }
 
 @media (max-width: 640px) {
+  .container {
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    row-gap: 16px;
+  }
+
+  .logoLink {
+    justify-self: start;
+    margin-left: 0;
+    padding-left: 0;
+  }
+
+  .cartLink {
+    justify-self: end;
+    margin-right: 0;
+    padding-right: 0;
+    width: 40px;
+    height: 40px;
+  }
+
   .logo {
-    width: 56px;
-    height: 56px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .cartIcon {
+    width: 22px;
+    height: 26px;
+  }
+
+  .badge {
+    top: 0;
+    right: -2px;
+    min-width: 16px;
+    height: 16px;
+    font-size: 10px;
+    line-height: 16px;
   }
 
   .nav {
@@ -129,5 +205,59 @@
 
   .navLink {
     font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding-left: 12px;
+    padding-right: 12px;
+    row-gap: 14px;
+  }
+
+  .logo {
+    width: 36px;
+    height: 36px;
+  }
+
+  .cartLink {
+    width: 36px;
+    height: 36px;
+  }
+
+  .cartIcon {
+    width: 20px;
+    height: 24px;
+  }
+
+  .nav {
+    gap: 10px 14px;
+  }
+
+  .navLink {
+    font-size: 13px;
+  }
+}
+@media (max-width: 900px) {
+  .nav {
+    grid-area: nav;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 12px 20px;
+    width: 100%;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .nav {
+    gap: 10px 16px;
+  }
+
+  .navLink {
+    font-size: 13px;
+    text-align: center;
   }
 }
