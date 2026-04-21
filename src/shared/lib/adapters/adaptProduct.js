@@ -1,14 +1,17 @@
-export function adaptProduct(product) {
+export function adaptProduct(item) {
   return {
-    id: Number(product.id),
-    title: product.title ?? "",
-    price: Number(product.price) || 0,
+    id: Number(item.id),
+    title: item.title ?? "",
+    description: item.description ?? "",
+    image: item.image ?? "",
+    price: Number(item.price) || 0,
     discountPrice:
-      product.discont_price !== null && product.discont_price !== undefined
-        ? Number(product.discont_price)
-        : null,
-    description: product.description ?? "",
-    image: product.image ?? "",
-    categoryId: product.categoryId ? Number(product.categoryId) : null,
+      item.discont_price === null || item.discont_price === undefined
+        ? null
+        : Number(item.discont_price),
+    categoryId:
+      item.categoryId === null || item.categoryId === undefined
+        ? null
+        : Number(item.categoryId),
   };
 }

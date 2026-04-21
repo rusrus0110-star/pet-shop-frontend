@@ -1,9 +1,12 @@
 import { Link, NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import logo from "../../assets/icons/logo.png";
 import basketIcon from "../../assets/icons/basket.png";
 
 import { ROUTES } from "../../shared/config/routes";
+import { selectCartItemsCount } from "../../features/cart/model/cartSelectors";
+
 import styles from "./style.module.css";
 
 const navItems = [
@@ -14,6 +17,8 @@ const navItems = [
 ];
 
 function Header() {
+  const cartItemsCount = useSelector(selectCartItemsCount);
+
   return (
     <header className={styles.header}>
       <div className={styles.container}>
@@ -45,6 +50,10 @@ function Header() {
           aria-label="Open shopping cart"
         >
           <img src={basketIcon} alt="Basket" className={styles.cartIcon} />
+
+          {cartItemsCount > 0 ? (
+            <span className={styles.badge}>{cartItemsCount}</span>
+          ) : null}
         </Link>
       </div>
     </header>
