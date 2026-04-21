@@ -1,13 +1,19 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 import { ROUTES } from "../../../../shared/config/routes";
 import { getProductImageUrl } from "../../../../shared/lib/getProductImageUrl";
+import { addItem } from "../../../../features/cart/model/cartSlice";
+import { selectCartItemQuantityById } from "../../../../features/cart/model/cartSelectors";
 
 import styles from "./style.module.css";
 
 function ProductCard({ product }) {
-  const [isAdded, setIsAdded] = useState(false);
+  const dispatch = useDispatch();
+
+  const quantityInCart = useSelector(selectCartItemQuantityById(product.id));
+  const isAdded = quantityInCart > 0;
 
   const imageUrl = getProductImageUrl(product.image);
 
@@ -36,7 +42,16 @@ function ProductCard({ product }) {
   );
 
   function handleAddToCart() {
-    setIsAdded(true);
+    if (isAdded) {
+      return;
+    }
+
+    dispatch(
+      addItem({
+        product,
+        quantity: 1,
+      }),
+    );
   }
 
   return (
@@ -72,6 +87,7 @@ function ProductCard({ product }) {
               aria-label={
                 isAdded ? "Product added to cart" : "Add product to cart"
               }
+              disabled={isAdded}
             >
               {isAdded ? "Added" : "Add to cart"}
             </button>
