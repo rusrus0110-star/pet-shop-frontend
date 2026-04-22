@@ -1,18 +1,19 @@
-import { useMemo, useEffect, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import Breadcrumbs from "../../widgets/Breadcrumbs";
 import ProductCard from "../../entities/product/ui/ProductCard";
+import NotFoundPage from "../NotFoundPage";
 import { getCategoryWithProducts } from "../../shared/api/categoriesApi";
 import { ROUTES } from "../../shared/config/routes";
 
 import styles from "./style.module.css";
 
-const SORT_OPTIONS = {
-  DEFAULT: "default",
-  PRICE_ASC: "price-asc",
-  PRICE_DESC: "price-desc",
-};
+const SORT_OPTIONS = [
+  { value: "default", label: "by default" },
+  { value: "price-asc", label: "price: low-high" },
+  { value: "price-desc", label: "price: high-low" },
+];
 
 function toNumber(value) {
   const parsed = Number(value);
@@ -43,7 +44,32 @@ function CategoryProductsPage() {
   const [priceFrom, setPriceFrom] = useState("");
   const [priceTo, setPriceTo] = useState("");
   const [discountOnly, setDiscountOnly] = useState(false);
-  const [sortBy, setSortBy] = useState(SORT_OPTIONS.DEFAULT);
+  const [sortBy, setSortBy] = useState("default");
+
+  const [isSortOpen, setIsSortOpen] = useState(false);
+  const sortRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (!sortRef.current?.contains(event.target)) {
+        setIsSortOpen(false);
+      }
+    }
+
+    function handleEscape(event) {
+      if (event.key === "Escape") {
+        setIsSortOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleEscape);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, []);
 
   useEffect(() => {
     let isMounted = true;
@@ -52,6 +78,8 @@ function CategoryProductsPage() {
       try {
         setStatus("loading");
         setError("");
+        setCategory(null);
+        setProducts([]);
 
         const response = await getCategoryWithProducts(id);
 
@@ -59,9 +87,16 @@ function CategoryProductsPage() {
           return;
         }
 
+        if (!response?.category) {
+          setCategory(null);
+          setProducts([]);
+          setStatus("success");
+          return;
+        }
+
         setCategory({
-          id: Number(response?.category?.id),
-          title: response?.category?.title ?? "Category",
+          id: Number(response.category.id),
+          title: response.category.title ?? "Category",
         });
 
         const normalizedProducts = Array.isArray(response?.data)
@@ -86,6 +121,13 @@ function CategoryProductsPage() {
       isMounted = false;
     };
   }, [id]);
+
+  const selectedSortLabel = useMemo(() => {
+    const selectedOption = SORT_OPTIONS.find(
+      (option) => option.value === sortBy,
+    );
+    return selectedOption?.label ?? "by default";
+  }, [sortBy]);
 
   const filteredProducts = useMemo(() => {
     const from = priceFrom.trim() === "" ? null : Number(priceFrom);
@@ -112,7 +154,7 @@ function CategoryProductsPage() {
       return true;
     });
 
-    if (sortBy === SORT_OPTIONS.PRICE_ASC) {
+    if (sortBy === "price-asc") {
       result.sort((a, b) => {
         const priceA = a.discountPrice !== null ? a.discountPrice : a.price;
         const priceB = b.discountPrice !== null ? b.discountPrice : b.price;
@@ -121,7 +163,7 @@ function CategoryProductsPage() {
       });
     }
 
-    if (sortBy === SORT_OPTIONS.PRICE_DESC) {
+    if (sortBy === "price-desc") {
       result.sort((a, b) => {
         const priceA = a.discountPrice !== null ? a.discountPrice : a.price;
         const priceB = b.discountPrice !== null ? b.discountPrice : b.price;
@@ -139,38 +181,70 @@ function CategoryProductsPage() {
     { label: category?.title ?? "Category" },
   ];
 
+  const handleSortSelect = (value) => {
+    setSortBy(value);
+    setIsSortOpen(false);
+  };
+
+  if (status === "idle" || status === "loading") {
+    return (
+      <section className={styles.page}>
+        <div className={styles.container}>
+          <p className={styles.state}>Loading products...</p>
+        </div>
+      </section>
+    );
+  }
+
+  if (status === "error") {
+    return (
+      <section className={styles.page}>
+        <div className={styles.container}>
+          <p className={styles.error}>{error}</p>
+        </div>
+      </section>
+    );
+  }
+
+  if (!category) {
+    return <NotFoundPage />;
+  }
+
   return (
     <section className={styles.page}>
       <div className={styles.container}>
         <Breadcrumbs items={breadcrumbsItems} />
 
-        <h1 className={styles.title}>{category?.title ?? "Category"}</h1>
+        <h1 className={styles.title}>{category.title}</h1>
 
         <div className={styles.filters}>
           <div className={styles.filterGroup}>
             <span className={styles.filterLabel}>Price</span>
 
-            <input
-              type="number"
-              min="0"
-              placeholder="from"
-              value={priceFrom}
-              onChange={(event) => setPriceFrom(event.target.value)}
-              className={styles.input}
-            />
+            <div className={styles.priceInputs}>
+              <input
+                type="number"
+                min="0"
+                placeholder="from"
+                value={priceFrom}
+                onChange={(event) => setPriceFrom(event.target.value)}
+                className={styles.input}
+              />
 
-            <input
-              type="number"
-              min="0"
-              placeholder="to"
-              value={priceTo}
-              onChange={(event) => setPriceTo(event.target.value)}
-              className={styles.input}
-            />
+              <input
+                type="number"
+                min="0"
+                placeholder="to"
+                value={priceTo}
+                onChange={(event) => setPriceTo(event.target.value)}
+                className={styles.input}
+              />
+            </div>
           </div>
 
           <label className={styles.checkboxGroup}>
             <span className={styles.filterLabel}>Discounted items</span>
+
             <input
               type="checkbox"
               checked={discountOnly}
@@ -182,35 +256,60 @@ function CategoryProductsPage() {
           <div className={styles.filterGroup}>
             <span className={styles.filterLabel}>Sorted</span>
 
-            <select
-              value={sortBy}
-              onChange={(event) => setSortBy(event.target.value)}
-              className={styles.select}
-            >
-              <option value={SORT_OPTIONS.DEFAULT}>by default</option>
-              <option value={SORT_OPTIONS.PRICE_ASC}>price: low-high</option>
-              <option value={SORT_OPTIONS.PRICE_DESC}>price: high-low</option>
-            </select>
+            <div className={styles.selectWrapper} ref={sortRef}>
+              <button
+                type="button"
+                className={`${styles.selectButton} ${
+                  isSortOpen ? styles.selectButtonOpen : ""
+                }`}
+                onClick={() => setIsSortOpen((prev) => !prev)}
+                aria-haspopup="listbox"
+                aria-expanded={isSortOpen}
+              >
+                <span className={styles.selectButtonText}>
+                  {selectedSortLabel}
+                </span>
+
+                <span
+                  className={`${styles.chevron} ${
+                    isSortOpen ? styles.chevronOpen : ""
+                  }`}
+                >
+                  ▾
+                </span>
+              </button>
+
+              {isSortOpen ? (
+                <div className={styles.dropdown} role="listbox">
+                  {SORT_OPTIONS.map((option) => (
+                    <button
+                      key={option.value}
+                      type="button"
+                      className={`${styles.option} ${
+                        sortBy === option.value ? styles.optionActive : ""
+                      }`}
+                      onClick={() => handleSortSelect(option.value)}
+                      role="option"
+                      aria-selected={sortBy === option.value}
+                    >
+                      {option.label}
+                    </button>
+                  ))}
+                </div>
+              ) : null}
+            </div>
           </div>
         </div>
 
-        {status === "loading" ? (
-          <p className={styles.state}>Loading products...</p>
-        ) : null}
-
-        {status === "error" ? <p className={styles.error}>{error}</p> : null}
-
-        {status === "success" && filteredProducts.length === 0 ? (
+        {filteredProducts.length === 0 ? (
           <p className={styles.state}>No products found for current filters.</p>
-        ) : null}
-
-        {status === "success" && filteredProducts.length > 0 ? (
+        ) : (
           <div className={styles.grid}>
             {filteredProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
-        ) : null}
+        )}
       </div>
     </section>
   );
