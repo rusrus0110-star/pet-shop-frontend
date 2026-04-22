@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Button, Input } from "antd";
 
 import {
   selectCartItemsCount,
@@ -34,27 +35,25 @@ function CartSummary() {
     return `$${Number(totalPrice).toFixed(2).replace(".", ",")}`;
   }, [totalPrice]);
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
+  const handleChange = (fieldName) => (event) => {
+    const value = event.target.value;
 
     setFormValues((prev) => ({
       ...prev,
-      [name]: value,
+      [fieldName]: value,
     }));
 
     if (value.trim()) {
       setErrors((prev) => ({
         ...prev,
-        [name]: false,
+        [fieldName]: false,
       }));
     }
 
     setShowFormError(false);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
+  const handleSubmit = () => {
     const trimmedName = formValues.name.trim();
     const trimmedPhone = formValues.phone.trim();
     const trimmedEmail = formValues.email.trim();
@@ -111,35 +110,32 @@ function CartSummary() {
           <span className={styles.totalValue}>{formattedTotal}</span>
         </div>
 
-        <form className={styles.form} onSubmit={handleSubmit} noValidate>
-          <input
-            className={`${styles.input} ${errors.name ? styles.inputError : ""}`}
-            type="text"
-            name="name"
+        <div className={styles.form}>
+          <Input
+            size="large"
             placeholder="Name"
             value={formValues.name}
-            onChange={handleChange}
-            aria-invalid={errors.name}
+            onChange={handleChange("name")}
+            status={errors.name ? "error" : ""}
+            className={styles.input}
           />
 
-          <input
-            className={`${styles.input} ${errors.phone ? styles.inputError : ""}`}
-            type="tel"
-            name="phone"
+          <Input
+            size="large"
             placeholder="Phone number"
             value={formValues.phone}
-            onChange={handleChange}
-            aria-invalid={errors.phone}
+            onChange={handleChange("phone")}
+            status={errors.phone ? "error" : ""}
+            className={styles.input}
           />
 
-          <input
-            className={`${styles.input} ${errors.email ? styles.inputError : ""}`}
-            type="email"
-            name="email"
+          <Input
+            size="large"
             placeholder="Email"
             value={formValues.email}
-            onChange={handleChange}
-            aria-invalid={errors.email}
+            onChange={handleChange("email")}
+            status={errors.email ? "error" : ""}
+            className={styles.input}
           />
 
           {showFormError ? (
@@ -148,36 +144,44 @@ function CartSummary() {
             </p>
           ) : null}
 
-          <button className={styles.orderButton} type="submit">
+          <Button
+            type="primary"
+            size="large"
+            block
+            className={styles.orderButton}
+            onClick={handleSubmit}
+          >
             Order
-          </button>
-        </form>
+          </Button>
+        </div>
       </aside>
 
       {isSubmitted ? (
         <div className={styles.modalOverlay} onClick={handleCloseModal}>
           <div
-            className={styles.modal}
+            className={styles.modalCard}
             onClick={(event) => event.stopPropagation()}
           >
             <button
               type="button"
               className={styles.modalClose}
               onClick={handleCloseModal}
-              aria-label="Close success message"
+              aria-label="Close success modal"
             >
               ×
             </button>
 
-            <h3 className={styles.modalTitle}>Congratulations!</h3>
+            <div className={styles.modalContent}>
+              <h3 className={styles.modalTitle}>Congratulations!</h3>
 
-            <p className={styles.modalText}>
-              Your order has been successfully placed on the website.
-            </p>
+              <p className={styles.modalText}>
+                Your order has been successfully placed on the website.
+              </p>
 
-            <p className={styles.modalText}>
-              A manager will contact you shortly to confirm your order.
-            </p>
+              <p className={styles.modalText}>
+                A manager will contact you shortly to confirm your order.
+              </p>
+            </div>
           </div>
         </div>
       ) : null}

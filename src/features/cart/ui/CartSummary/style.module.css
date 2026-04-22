@@ -59,86 +59,65 @@
   gap: 16px;
 }
 
-.input {
-  width: 100%;
+.input :global(.ant-input) {
   height: 58px;
   padding: 0 16px;
-  border: 1px solid transparent;
   border-radius: var(--radius-sm);
-  background-color: var(--color-background);
-  box-sizing: border-box;
-  color: var(--color-text-primary);
   font-family: var(--font-family-base);
   font-size: 16px;
-  outline: none;
-  transition: border-color 0.2s ease;
 }
 
-.input::placeholder {
+.input :global(.ant-input::placeholder) {
   color: var(--color-text-secondary);
 }
 
-.input:focus {
-  border-color: var(--color-primary-blue);
+.formError {
+  margin: -4px 0 0;
+  color: var(--color-danger);
+  font-family: var(--font-family-base);
+  font-size: 14px;
+  line-height: 1.3;
 }
 
 .orderButton {
-  width: 100%;
   height: 58px;
-  border: none;
   border-radius: var(--radius-sm);
-  background-color: var(--color-primary-blue);
-  color: var(--color-white);
   font-family: var(--font-family-base);
   font-size: 16px;
   font-weight: var(--font-weight-semi-bold);
-  cursor: pointer;
-  transition: background-color 0.2s ease;
+  box-shadow: none;
 }
 
-.orderButton:hover {
-  background-color: var(--color-dark);
+.orderButton:global(.ant-btn-primary) {
+  background-color: var(--color-primary-blue);
 }
 
-.success {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  min-height: 260px;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-
-.successText {
-  margin: 0;
-  color: var(--color-text-primary);
-  font-family: var(--font-family-base);
-  font-size: 18px;
-  line-height: 1.5;
+.orderButton:global(.ant-btn-primary):hover,
+.orderButton:global(.ant-btn-primary):focus {
+  background-color: var(--color-dark) !important;
 }
 
 .modalOverlay {
   position: fixed;
   inset: 0;
   z-index: 1000;
-  background-color: rgba(40, 40, 40, 0.4);
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
-  padding: 120px 16px 24px;
+  padding: 24px;
+  background: rgba(40, 40, 40, 0.4);
   box-sizing: border-box;
 }
 
-.modal {
+.modalCard {
   position: relative;
-  width: min(548px, 100%);
-  min-height: 236px;
+  width: 100%;
+  max-width: 548px;
   padding: 32px;
   border-radius: var(--radius-md);
   background-color: var(--color-primary-blue);
-  box-sizing: border-box;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
 }
 
 .modalClose {
@@ -152,6 +131,10 @@
   line-height: 1;
   cursor: pointer;
   padding: 0;
+}
+
+.modalContent {
+  padding-right: 24px;
 }
 
 .modalTitle {
@@ -176,29 +159,18 @@
   margin-bottom: 0;
 }
 
-@media (max-width: 768px) {
-  .modalOverlay {
-    padding-top: 80px;
+@media (min-width: 1025px) and (max-width: 1366px) {
+  .summary {
+    padding: 24px;
   }
 
-  .modal {
-    padding: 24px 20px;
-    min-height: auto;
-  }
-
-  .modalClose {
-    top: 16px;
-    right: 16px;
+  .itemsCount,
+  .totalLabel {
     font-size: 28px;
   }
 
-  .modalTitle {
-    margin-bottom: 20px;
-    font-size: 28px;
-  }
-
-  .modalText {
-    font-size: 16px;
+  .totalValue {
+    font-size: 48px;
   }
 }
 
@@ -226,8 +198,36 @@
     font-size: 40px;
   }
 
-  .input,
+  .input :global(.ant-input) {
+    height: 52px;
+    font-size: 15px;
+  }
+
   .orderButton {
     height: 52px;
+    font-size: 15px;
+  }
+
+  .modalOverlay {
+    padding: 16px;
+  }
+
+  .modalCard {
+    padding: 24px 20px;
+  }
+
+  .modalClose {
+    top: 16px;
+    right: 16px;
+    font-size: 28px;
+  }
+
+  .modalTitle {
+    margin-bottom: 20px;
+    font-size: 28px;
+  }
+
+  .modalText {
+    font-size: 16px;
   }
 }
