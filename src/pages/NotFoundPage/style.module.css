@@ -1,6 +1,163 @@
 .page {
-  max-width: 1440px;
+  width: 100%;
+  background-color: var(--color-background);
+}
+
+.container {
+  width: 100%;
+  max-width: var(--layout-max-width);
   margin: 0 auto;
-  padding: 40px 20px;
-  min-height: 60vh;
+  padding: 80px var(--layout-padding-x) 96px;
+  box-sizing: border-box;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.codeBlock {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.digit {
+  font-family: var(--font-family-base);
+  font-size: clamp(120px, 16vw, 240px);
+  font-weight: var(--font-weight-bold);
+  line-height: 0.85;
+  color: var(--color-primary-blue);
+}
+
+.dog {
+  width: clamp(120px, 14vw, 170px);
+  height: auto;
+  object-fit: contain;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.title {
+  margin: 0 0 16px;
+  font-family: var(--font-family-base);
+  font-size: clamp(36px, 4vw, 64px);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.1;
+  color: var(--color-text-primary);
+}
+
+.text {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: 16px;
+  font-weight: var(--font-weight-medium);
+  line-height: 1.35;
+  color: var(--color-text-secondary);
+}
+
+.text + .text {
+  margin-top: 4px;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 210px;
+  min-height: 58px;
+  margin-top: 32px;
+  padding: 16px 32px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-primary-blue);
+  color: var(--color-white);
+  text-decoration: none;
+  font-family: var(--font-family-base);
+  font-size: 16px;
+  font-weight: var(--font-weight-semi-bold);
+  line-height: 1;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+  box-sizing: border-box;
+}
+
+.button:hover {
+  background-color: var(--color-dark);
+  color: var(--color-white);
+}
+
+@media (max-width: 1366px) {
+  .container {
+    padding-top: 64px;
+    padding-bottom: 80px;
+  }
+
+  .codeBlock {
+    margin-bottom: 24px;
+  }
+
+  .button {
+    min-width: 190px;
+    min-height: 54px;
+    margin-top: 28px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 48px 16px 64px;
+  }
+
+  .codeBlock {
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .dog {
+    width: 96px;
+    margin-bottom: 8px;
+  }
+
+  .title {
+    margin-bottom: 12px;
+    font-size: 32px;
+  }
+
+  .text {
+    font-size: 14px;
+  }
+
+  .button {
+    width: 100%;
+    max-width: 220px;
+    min-height: 48px;
+    margin-top: 24px;
+    padding: 14px 24px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding-top: 40px;
+    padding-bottom: 56px;
+  }
+
+  .digit {
+    font-size: 96px;
+  }
+
+  .dog {
+    width: 82px;
+  }
+
+  .title {
+    font-size: 28px;
+  }
 }
