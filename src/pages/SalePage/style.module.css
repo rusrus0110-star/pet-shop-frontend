@@ -8,7 +8,7 @@
   margin: 0 auto;
   padding: 40px var(--layout-padding-x) 0;
   display: grid;
-  gap: 24px;
+  gap: 40px;
 }
 
 .title {
@@ -42,6 +42,21 @@
   color: #cf1322;
 }
 
+@media (max-width: 1200px) {
+  .container {
+    gap: 24px;
+  }
+
+  .title {
+    font-size: var(--font-size-h1);
+  }
+
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+  }
+}
+
 @media (max-width: 900px) {
   .container {
     gap: 24px;
@@ -60,6 +75,7 @@
 @media (max-width: 640px) {
   .container {
     padding-top: 24px;
+    gap: 20px;
   }
 
   .title {

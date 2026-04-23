@@ -18,7 +18,7 @@
 
   --font-family-base: "Montserrat", Arial, sans-serif;
 
-  --font-size-h1: clamp(40px, 3.6vw, 56px);
+  --font-size-h1: clamp(38px, 3.4vw, 52px);
   --font-size-h2: clamp(32px, 3.2vw, 48px);
   --font-size-h3: 20px;
   --font-size-body: 16px;
@@ -85,7 +85,7 @@
   --header-cart-badge-size: 26px;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1300px) {
   :root {
     --product-page-gallery-width: 100%;
     --product-page-gallery-height: auto;

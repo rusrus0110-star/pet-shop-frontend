@@ -8,7 +8,7 @@
   margin: 0 auto;
   padding: 40px var(--layout-padding-x) 0;
   display: grid;
-  gap: 48px;
+  gap: 24px;
 }
 
 .title {
@@ -230,17 +230,17 @@
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1300px) {
   .container {
     gap: 24px;
   }
 
   .title {
-    font-size: 48px;
+    font-size: clamp(32px, 2.8vw, 38px);
   }
 
   .grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 24px;
   }
 }
@@ -252,11 +252,20 @@
     gap: 20px;
   }
 
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+
   .filterGroup {
     width: 100%;
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
+  }
+
+  .filterLabel {
+    font-size: 16px;
   }
 
   .priceInputs {
@@ -268,6 +277,7 @@
     width: 100%;
     min-width: 0;
     flex: 1 1 0;
+    font-size: 14px;
   }
 
   .checkboxGroup {
@@ -280,6 +290,15 @@
     width: 100%;
   }
 
+  .selectButton {
+    height: 40px;
+  }
+
+  .selectButtonText,
+  .option {
+    font-size: 14px;
+  }
+
   .dropdown {
     left: 0;
     right: 0;
@@ -289,10 +308,15 @@
 @media (max-width: 640px) {
   .container {
     padding-top: 24px;
+    gap: 20px;
   }
 
   .title {
-    font-size: 40px;
+    font-size: 36px;
+  }
+
+  .filterLabel {
+    font-size: 16px;
   }
 
   .priceInputs {
@@ -311,18 +335,22 @@
     gap: 16px;
   }
 
+  .title {
+    font-size: 32px;
+  }
+
   .filterLabel {
-    font-size: 18px;
+    font-size: 15px;
   }
 
   .input,
   .selectButton {
-    height: 42px;
+    height: 40px;
   }
 
+  .input,
   .selectButtonText,
-  .option,
-  .input {
+  .option {
     font-size: 14px;
   }
 

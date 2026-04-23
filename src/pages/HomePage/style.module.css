@@ -81,7 +81,7 @@
   padding-left: var(--layout-padding-x);
   padding-right: var(--layout-padding-x);
   display: grid;
-  gap: 48px;
+  gap: 72px;
 }
 
 .stubSection {
@@ -96,7 +96,7 @@
   color: #282828;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1300px) {
   .heroContent {
     padding-top: 56px;
   }

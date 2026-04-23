@@ -132,7 +132,7 @@
   color: #cf1322;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1300px) {
   .title {
     font-size: var(--font-size-h1);
   }
