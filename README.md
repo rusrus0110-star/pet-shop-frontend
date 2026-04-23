@@ -2,6 +2,10 @@
 
 Responsive e-commerce frontend for a pet shop built with React, Redux Toolkit, React Router, Ant Design, and CSS Modules.
 
+## Related Repository
+
+Backend repository: [pet-shop-backend](https://github.com/rusrus0110-star/pet-shop-backend)
+
 ## Overview
 
 This project is a frontend web application for an online pet shop. It includes product browsing, category navigation, discounted products, product details, cart management, order placement, custom 404 handling, and cart persistence with localStorage.
