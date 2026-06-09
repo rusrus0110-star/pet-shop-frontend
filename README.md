@@ -2,6 +2,24 @@
 
 Responsive e-commerce frontend for a pet shop built with React, Redux Toolkit, React Router, Ant Design, and CSS Modules.
 
+# Pet Shop Frontend
+
+Frontend application for the **Pet Shop** portfolio project.
+
+## Live Demo
+
+Production frontend:
+
+```txt
+https://pet-shop-frontend-orcin.vercel.app
+```
+
+Backend API:
+
+```txt
+https://pet-shop-backend-production.up.railway.app
+```
+
 ## Related Repository
 
 Backend repository: [pet-shop-backend](https://github.com/rusrus0110-star/pet-shop-backend)
